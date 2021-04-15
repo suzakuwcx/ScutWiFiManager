@@ -18,20 +18,15 @@ import javax.net.ssl.X509TrustManager;
 
 public class WifiUtil {
     public static boolean connectScutWifi(String usrname, String passwd) throws IOException {
-        try {
-            ignoreCer();
-        } catch (KeyManagementException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        URL url = new URL("https://www.baidu.com/");
-        HttpsURLConnection session = (HttpsURLConnection) url.openConnection();
+        URL url = new URL("http://www.baidu.com");
+        HttpURLConnection session = (HttpURLConnection) url.openConnection();
         session.setRequestMethod("GET");
         session.setInstanceFollowRedirects(false);
-        session.setReadTimeout(10000);
+        session.setConnectTimeout(3000);
         session.connect();
 
         if (session.getResponseCode() != HttpURLConnection.HTTP_MOVED_TEMP)
-            return false;
+            return true;
 
         Scanner in = new Scanner(session.getInputStream());
         String wlanuserip = null;
@@ -61,7 +56,7 @@ public class WifiUtil {
                 "?c=ACSetting&a=Login" +
                 "&wlanuserip=" + wlanuserip +
                 "&wlanacip=" + wlanacip +
-                "&wlanacname=dongxiqu-AC" +
+                "&wlanacname=" +
                 "&redirect=" +
                 "&session=" +
                 "&vlanid=0" +
@@ -76,7 +71,7 @@ public class WifiUtil {
         session.setDoOutput(true);
         session.setInstanceFollowRedirects(true);
         session.setUseCaches(false);
-        session.setReadTimeout(10000);
+        session.setConnectTimeout(3000);
         session.setRequestProperty("Content-Length", String.valueOf(params.length()));
         session.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
@@ -98,28 +93,4 @@ public class WifiUtil {
         }
     }
 
-    private static void ignoreCer() throws KeyManagementException, NoSuchAlgorithmException {
-        HttpsURLConnection.setDefaultHostnameVerifier((s, sslSession) -> true);
-
-        TrustManager[] trustManager = new TrustManager[1];
-        trustManager[0] = new NullCertificate();
-        SSLContext sslContext = SSLContext.getInstance("SSL");
-        sslContext.init(null,trustManager,null);
-        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-    }
-
-    private static class NullCertificate implements X509TrustManager,TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
-    }
 }

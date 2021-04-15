@@ -17,11 +17,6 @@ public class LoginKeyController {
         editor = sharedPref.edit();
     }
 
-    public void reloadLoginKey(EditText usrEdit, EditText passwdEdit) {
-        usrEdit.setText(sharedPref.getString("Username", ""));
-        passwdEdit.setText(sharedPref.getString("Password", ""));
-    }
-
     public void saveLoginKey(String usrname, String passwd) {
         editor.putString("Username", usrname);
         editor.putString("Password", passwd);
