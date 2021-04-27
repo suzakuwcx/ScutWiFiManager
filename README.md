@@ -3,6 +3,10 @@
 #### 备注：由于Android10 API扫描wifi极其耗电且需要定位权限，已放弃实现
 #### 目前北校北区已全部通过测试
 
+[点击下载]: https://github.com/ChuXuan-windy/ScutWiFiManager/releases/tag/v1.0
+
+[点击下载][]
+
 一个小工具，因为自己的手机浏览器无法记住密码，并且华工宿舍的wifi经常需要重新验证，于是就有了这个app
 
 使用方法：
