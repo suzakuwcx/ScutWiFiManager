@@ -1,74 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    tools:visibility="visible">
 
-    <Button
-        android:id="@+id/savebutton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/usernameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/username"
+            android:textAlignment="center"
+            android:textAllCaps="false" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/password"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:onClick="connect"
-        android:text="@string/savebutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/passwordText"
-        android:layout_width="76dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/password"
-        app:layout_constraintEnd_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+        <Space
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="181dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="48dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/passwordText"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="318dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="connect"
+            android:text="@string/savebutton" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="183dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="48dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/usernameText"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Space
+            android:layout_width="365dp"
+            android:layout_height="24dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/usernameText"
-        android:layout_width="76dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/username"
-        app:layout_constraintEnd_toStartOf="@+id/username"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/output"
-        android:layout_width="288dp"
-        android:layout_height="367dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savebutton"
-        app:layout_constraintVertical_bias="0.447" />
+        <Switch
+            android:id="@+id/switcher"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/connectswitch"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/switchdescribe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/switchdescribe"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="37dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/console"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ECD8D8"
+            android:text="@string/console" />
+    </LinearLayout>
+
+</LinearLayout>

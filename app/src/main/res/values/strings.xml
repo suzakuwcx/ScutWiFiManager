@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">ScutWiFiManager</string>
+    <string name="ScutWifiManager">ScutWiFiManager</string>
     <string name="url">URL</string>
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="savebutton">连接</string>
-
+    <string name="connectswitch">自动连接</string>
+    <string name="switchdescribe">下一次打开程序将直接尝试连接，连接成功或已经联网将直接关闭程序，如果需要关闭该选项请断开网络打开app</string>
+    <string name="console">终端</string>
 </resources>

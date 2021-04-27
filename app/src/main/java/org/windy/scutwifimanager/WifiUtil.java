@@ -17,20 +17,37 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 public class WifiUtil {
-    public static boolean connectScutWifi(String usrname, String passwd) throws IOException {
-        URL url = new URL("http://www.baidu.com");
+    //连接学校的wifi
+    public static ConnectInfo connectScutWifi(String usrname, String passwd) throws IOException {
+        ConnectInfo connectInfo = new ConnectInfo();
+//        if (true)
+//            return connectInfo;
+        if (usrname.equals("") || passwd.equals(""))
+        {
+            connectInfo.setRedirect(false);
+            connectInfo.setIsSuccess(false);
+            return connectInfo;
+        }
+        URL url = new URL("http://www.baidu.com/");
         HttpURLConnection session = (HttpURLConnection) url.openConnection();
         session.setRequestMethod("GET");
         session.setInstanceFollowRedirects(false);
         session.setConnectTimeout(3000);
         session.connect();
-
+        //捕获学校的强制门户
         if (session.getResponseCode() != HttpURLConnection.HTTP_MOVED_TEMP)
-            return true;
+        {
+            connectInfo.setRedirect(false);
+            connectInfo.setIsSuccess(true);
+            return connectInfo;
+        }
+
+        connectInfo.setRedirect(true);
 
         Scanner in = new Scanner(session.getInputStream());
         String wlanuserip = null;
         String wlanacip = null;
+        //从返回报文中读取相关配置
         while (in.hasNextLine())
         {
             if (in.hasNext("<NextURL>\\S+</NextURL>"))
@@ -40,6 +57,8 @@ public class WifiUtil {
             }
             else in.nextLine();
         }
+        connectInfo.setWlanuserip(wlanuserip);
+        connectInfo.setWlanacip(wlanacip);
 
         session.disconnect();
 
@@ -76,21 +95,16 @@ public class WifiUtil {
         session.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
         session.connect();
-
+        //向服务器输出密码
         OutputStream postStream = session.getOutputStream();
         postStream.write(params.getBytes());
         postStream.close();
+        //读取返回页面，如果返回页面是3.htm说明连接成功
+        connectInfo.setLastURL(session.getHeaderField("Location"));
 
-        if (session.getHeaderField("Location").contains("3.htm"))
-        {
-            session.disconnect();
-            return true;
-        }
-        else
-        {
-            session.disconnect();
-            return false;
-        }
+        session.disconnect();
+
+        return connectInfo;
     }
 
 }
