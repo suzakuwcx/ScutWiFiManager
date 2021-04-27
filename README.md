@@ -1,6 +1,6 @@
 # ScutWiFiManager
 
-#### 备注：由于Android10 API扫描wifi极其耗电且需要定位权限，已放弃实现
+#### 备注：由于Android10 API扫描wifi极其耗电且需要定位权限，已放弃实现断线重连功能
 #### 目前北校北区已全部通过测试
 
 [点击下载]: https://github.com/ChuXuan-windy/ScutWiFiManager/releases/tag/v1.0
