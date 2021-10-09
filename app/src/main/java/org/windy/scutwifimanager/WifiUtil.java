@@ -62,43 +62,64 @@ public class WifiUtil {
 
         session.disconnect();
 
-        String params =
-                "DDDDD=" + URLEncoder.encode(usrname, "UTF-8") + "&" +
-                        "upass=" + URLEncoder.encode(passwd, "UTF-8") + "&" +
-                        "R1=" + URLEncoder.encode("0", "UTF-8") + "&" +
-                        "R2=" + URLEncoder.encode("", "UTF-8") + "&" +
-                        "R6=" + URLEncoder.encode("0", "UTF-8") + "&" +
-                        "para=" + URLEncoder.encode("00", "UTF-8") + "&" +
-                        "0MKKey=" + URLEncoder.encode("123456", "UTF-8");
+//        String params =
+//                "DDDDD=" + URLEncoder.encode(usrname, "UTF-8") + "&" +
+//                        "upass=" + URLEncoder.encode(passwd, "UTF-8") + "&" +
+//                        "R1=" + URLEncoder.encode("0", "UTF-8") + "&" +
+//                        "R2=" + URLEncoder.encode("", "UTF-8") + "&" +
+//                        "R6=" + URLEncoder.encode("0", "UTF-8") + "&" +
+//                        "para=" + URLEncoder.encode("00", "UTF-8") + "&" +
+//                        "0MKKey=" + URLEncoder.encode("123456", "UTF-8");
+//
+//        url = new URL("https://s.scut.edu.cn:801/eportal/" +
+//                "?c=ACSetting&a=Login" +
+//                "&wlanuserip=" + wlanuserip +
+//                "&wlanacip=" + wlanacip +
+//                "&wlanacname=" +
+//                "&redirect=" +
+//                "&session=" +
+//                "&vlanid=0" +
+//                "&port=" +
+//                "&iTermType=1" +
+//                "&protocol=https:");
 
-        url = new URL("https://s.scut.edu.cn:801/eportal/" +
-                "?c=ACSetting&a=Login" +
-                "&wlanuserip=" + wlanuserip +
-                "&wlanacip=" + wlanacip +
-                "&wlanacname=" +
-                "&redirect=" +
-                "&session=" +
-                "&vlanid=0" +
-                "&port=" +
-                "&iTermType=1" +
-                "&protocol=https:");
+        url = new URL("https://s.scut.edu.cn:802/eportal/portal/login" +
+                "?callback=dr1003" +
+                "&login_method=1" +
+                "&user_account=" + usrname +
+                "&user_password=" + passwd +
+                "&wlan_user_ip=" + wlanuserip +
+                "&wlan_user_ipv6=" +
+                "&wlan_user_mac=" +
+                "&wlan_ac_ip=" + wlanacip +
+                "&wlan_ac_name=dongxiqu-AC" +
+                "&jsVersion=4.1.3" +
+                "&terminal_type=1" +
+                "&lang=en,en" +
+                "&v=727");
+
 
         session = (HttpsURLConnection) url.openConnection();
 
-        session.setRequestMethod("POST");
-        session.setDoInput(true);
-        session.setDoOutput(true);
-        session.setInstanceFollowRedirects(true);
-        session.setUseCaches(false);
+        session.setRequestMethod("GET");
+        session.setInstanceFollowRedirects(false);
         session.setConnectTimeout(3000);
-        session.setRequestProperty("Content-Length", String.valueOf(params.length()));
-        session.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
         session.connect();
-        //向服务器输出密码
-        OutputStream postStream = session.getOutputStream();
-        postStream.write(params.getBytes());
-        postStream.close();
+
+//        session.setRequestMethod("POST");
+//        session.setDoInput(true);
+//        session.setDoOutput(true);
+//        session.setInstanceFollowRedirects(true);
+//        session.setUseCaches(false);
+//        session.setConnectTimeout(3000);
+//        session.setRequestProperty("Content-Length", String.valueOf(params.length()));
+//        session.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//
+//        session.connect();
+//        //向服务器输出密码
+//        OutputStream postStream = session.getOutputStream();
+//        postStream.write(params.getBytes());
+//        postStream.close();
         //读取返回页面，如果返回页面是3.htm说明连接成功
         connectInfo.setLastURL(session.getHeaderField("Location"));
 
