@@ -7,7 +7,7 @@ public class ConnectInfo {
     private String wlanuserip = null;
     private String wlanacip = null;
     //最终学校服务器返回的url
-    private String lastURL = null;
+    private String lastMsg = null;
     //设备是否联网
     private boolean success = false;
 
@@ -39,15 +39,12 @@ public class ConnectInfo {
         this.wlanacip = wlanacip;
     }
 
-    public String getLastURL() {
-        return lastURL;
+    public String getLastMsg() {
+        return lastMsg;
     }
 
-    public void setLastURL(String lastURL) {
-        this.lastURL = lastURL;
-
-        if (lastURL != null && lastURL.contains("3.htm"))
-            success = true;
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg = lastMsg;
     }
 
     public boolean isSuccess()

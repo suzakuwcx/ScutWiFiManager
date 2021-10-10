@@ -1,20 +1,13 @@
 package org.windy.scutwifimanager;
 
 import java.io.IOException;
-import java.io.OutputStream;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
+
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 public class WifiUtil {
     //连接学校的wifi
@@ -53,10 +46,11 @@ public class WifiUtil {
             if (in.hasNext("<NextURL>\\S+</NextURL>"))
             {
                 wlanuserip = in.findInLine("(?<=wlanuserip=)([0-9|.]+)");
-                wlanacip = in.findInLine("(?<=wlanacip=)([0-9|.]+)");
+                wlanacip = in.findInLine("(?<=wlanacip=)([0-9|A-Z.%]+)");
             }
             else in.nextLine();
         }
+
         connectInfo.setWlanuserip(wlanuserip);
         connectInfo.setWlanacip(wlanacip);
 
@@ -120,8 +114,22 @@ public class WifiUtil {
 //        OutputStream postStream = session.getOutputStream();
 //        postStream.write(params.getBytes());
 //        postStream.close();
-        //读取返回页面，如果返回页面是3.htm说明连接成功
-        connectInfo.setLastURL(session.getHeaderField("Location"));
+//        读取返回页面，如果返回页面是3.htm说明连接成功
+//        读取返回的Json字符串
+        in = new Scanner(session.getInputStream());
+        while (in.hasNextLine())
+        {
+            if (in.hasNext(".+\"result\":1.+"))
+            {
+                connectInfo.setLastMsg(in.nextLine());
+                connectInfo.setIsSuccess(true);
+                break;
+            }
+            else
+            {
+                connectInfo.setLastMsg(in.nextLine());
+            }
+        }
 
         session.disconnect();
 

@@ -1,9 +1,7 @@
 package org.windy.scutwifimanager;
 
-import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     console.append("重定向到登陆页面：" + info.isRedirect() + "\n");
                     console.append("wlanuserip：" + info.getWlanuserip() + "\n");
                     console.append("wlanacip：" + info.getWlanacip() + "\n");
-                    console.append("lasturl：" + info.getLastURL() + "\n");
+                    console.append("lastMsg：" + info.getLastMsg() + "\n");
                     console.append("设备是否已经联网：" + info.isSuccess() + "\n");
                 });
             } catch (IOException e) {
